@@ -1,0 +1,39 @@
+name: List Example
+
+on:
+  push:
+
+jobs:
+
+  phpunittest:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version:
+          - '8.1'
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          ini-values: zend.assertions=1
+
+      - name: Install php deps
+        run: |
+          composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
+
+      - uses: CNimmo16/php-test-only-changed@main
+        id: listChanged
+        with:
+          ignore-paths: vendor
+          tests-directory: tests
+          list-only: true
+
+      - name: Log result
+        run: |
+          echo "Files changed since last successful test run: ${{ steps.listChanged.outputs.files }}"

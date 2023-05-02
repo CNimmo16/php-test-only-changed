@@ -16,7 +16,7 @@
     ],
     "require": {
         "cnimmo/list-deps": "^1.0",
-        "cnimmo/granular-testsuites": "^1.0"
+        "cnimmo/granular-testsuites": "^1.1"
     },
     "bin": ["bin/test-only-changed"],
     "require-dev": {

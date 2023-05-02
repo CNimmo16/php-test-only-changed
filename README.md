@@ -1,4 +1,4 @@
-# Stop wasting time in CI running tests that you know aren't failing!
+# Stop wasting time running tests that you know aren't failing!
 
 This Github action allows you to execute your PHP unit tests more quickly in CI, by running only tests which are related to files changed since the last successful workflow run.
 
@@ -22,6 +22,8 @@ See an [example workflow](./.github/workflows/example.yml).
 - `workflow-id` Name of workflow to check for success. Defaults to current workflow.
 - `tests-directory` The directory where the tests are located relative to the root. Defaults to tests.
 - `ignore-paths` Files to ignore when determining which files to run. Defaults to `vendor,node_modules,_ide_helper.php`
+- `list-only` This option allows the flexibility to configure Paratest/bring your own test runner. When set to true, the action will not run your tests, but instead write a list of all testsuites to the `files` output, joined by the `separator` (see below).
+- `separator` To be used alongside the `list-only` argument. Specifies the separator that should be used between each testsuite name. Defaults to a comma.
 
 ## How it works
 

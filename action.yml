@@ -14,6 +14,16 @@ inputs:
   ignore-paths:
     description: 'Files to ignore when determining which files to run.'
     default: 'vendor,node_modules,_ide_helper.php'
+  list-only:
+    description: 'List the files that would be run and exit, allowing you to bring your own test runner.'
+    default: false
+  separator:
+    description: 'Separator to use when listing files. For use alongside the list-only option'
+    default: ','
+outputs:
+  files: 
+    description: A list of files that have changed since the last successful workflow run.
+    value: ${{ steps.listChanged.outputs.files }}
 runs:
   using: composite
   steps:
@@ -42,6 +52,13 @@ runs:
           composer global require cnimmo/test-only-changed
           composer global config bin-dir --absolute --quiet
 
+    - name: List changed files
+      id: listChanged
+      if: ${{ inputs.list-only }}
+      shell: bash
+      run: echo "files=$(/home/runner/.composer/vendor/bin/list-only-changed --allow-missing --ignore=${{ inputs.ignore-paths }} --tests-directory=${{ inputs.tests-directory }} --changed-files=${{ steps.changes_since_successful_commit.outputs.all_changed_and_modified_files }} --separator={{ inputs.separator }})" >> "$GITHUB_OUTPUT"
+
     - name: Run paratest on changed files
+      if: ${{ !inputs.list-only }}
       shell: bash
       run: /home/runner/.composer/vendor/bin/test-only-changed --allow-missing --ignore=${{ inputs.ignore-paths }} --tests-directory=${{ inputs.tests-directory }} --changed-files=${{ steps.changes_since_successful_commit.outputs.all_changed_and_modified_files }}
