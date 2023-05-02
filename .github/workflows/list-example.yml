@@ -35,5 +35,6 @@ jobs:
           list-only: true
 
       - name: Run tests with Paratest
+        if: ${{ steps.listChanged.outputs.files }}
         run: |
           ./vendor/bin/paratest --configuration phpunit.generated.xml --runner WrapperRunner --testsuite ${{ steps.listChanged.outputs.files }}
