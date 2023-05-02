@@ -18,7 +18,10 @@
         "cnimmo/list-deps": "^1.0",
         "cnimmo/granular-testsuites": "^1.1"
     },
-    "bin": ["bin/test-only-changed"],
+    "bin": [
+        "bin/test-only-changed",
+        "bin/list-only-changed"
+    ],
     "require-dev": {
         "brianium/paratest": "^7.1"
     }
