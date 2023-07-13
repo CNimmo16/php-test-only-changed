@@ -55,6 +55,11 @@ runs:
         cd ${{ github.action_path }}
         composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
 
+    - name: Change directory back to workspace
+      shell: bash
+      run: |
+        cd ${{ github.workspace }}
+
     - name: List changed files
       id: listChanged
       if: ${{ inputs.list-only }}
