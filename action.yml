@@ -68,7 +68,7 @@ runs:
       shell: bash
       run: |
         FILES=$(${{ github.action_path }}/bin/list-only-changed ${{ inputs.allow-missing && '--allow-missing' }} --ignore=${{ inputs.ignore-paths }} --tests-directory=${{ inputs.tests-directory }} --changed-files=${{ steps.changes_since_successful_commit.outputs.all_changed_and_modified_files }} --separator=${{ inputs.separator }})
-        echo "files='$FILES'" >> "$GITHUB_OUTPUT"
+        echo "files=$FILES" >> "$GITHUB_OUTPUT"
 
     - name: Run paratest on changed files
       if: ${{ !inputs.list-only }}
