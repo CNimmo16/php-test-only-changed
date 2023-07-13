@@ -46,7 +46,8 @@ runs:
       id: changes_since_successful_commit
       uses: tj-actions/changed-files@v35
       with:
-        files: '**.php'
+        files: |
+          **/*.php
         base_sha: ${{ steps.last_successful_commit.outputs.base }}
         separator: ','
 
