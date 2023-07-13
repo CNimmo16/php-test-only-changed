@@ -24,8 +24,11 @@ inputs:
     description: 'Allow references to namespaces that cannot be found in the repository. When false an error will be thrown.'
     default: true
 outputs:
-  files: 
-    description: A list of files that have changed since the last successful workflow run.
+  files:
+    description: A list of test files that should be run based on files changed since the last successful workflow run.
+    value: ${{ steps.listChanged.outputs.files }}
+  file_count:
+    description: The number of files in the files output.
     value: ${{ steps.listChanged.outputs.files }}
 runs:
   using: composite
@@ -69,6 +72,9 @@ runs:
       run: |
         FILES=$(${{ github.action_path }}/bin/list-only-changed ${{ inputs.allow-missing && '--allow-missing' }} --ignore=${{ inputs.ignore-paths }} --tests-directory=${{ inputs.tests-directory }} --changed-files=${{ steps.changes_since_successful_commit.outputs.all_changed_and_modified_files }} --separator=${{ inputs.separator }})
         echo "files=$FILES" >> "$GITHUB_OUTPUT"
+
+        # assign the number of commas in the $FILES string to the file_count variable
+        echo "file_count=$(echo "$FILES" | grep -o "," | wc -l)" >> "$GITHUB_OUTPUT"
 
     - name: Run paratest on changed files
       if: ${{ !inputs.list-only }}
