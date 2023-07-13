@@ -29,7 +29,7 @@ outputs:
     value: ${{ steps.listChanged.outputs.files }}
   file_count:
     description: The number of files in the files output.
-    value: ${{ steps.listChanged.outputs.files }}
+    value: ${{ steps.listChanged.outputs.file_count }}
 runs:
   using: composite
   steps:
