@@ -47,6 +47,7 @@ runs:
         separator: ','
 
     - name: Install php deps
+      shell: bash
       run: |
         cd ${{ github.action_path }}
         composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
