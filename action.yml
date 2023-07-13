@@ -56,7 +56,9 @@ runs:
       id: listChanged
       if: ${{ inputs.list-only }}
       shell: bash
-      run: echo "files=$(${{ github.action_path }}/bin/list-only-changed --allow-missing --ignore=${{ inputs.ignore-paths }} --tests-directory=${{ inputs.tests-directory }} --changed-files=${{ steps.changes_since_successful_commit.outputs.all_changed_and_modified_files }} --separator={{ inputs.separator }})" >> "$GITHUB_OUTPUT"
+      run: |
+        FILES=$(${{ github.action_path }}/bin/list-only-changed --allow-missing --ignore=${{ inputs.ignore-paths }} --tests-directory=${{ inputs.tests-directory }} --changed-files=${{ steps.changes_since_successful_commit.outputs.all_changed_and_modified_files }} --separator={{ inputs.separator }})
+        echo "files=$FILES" >> "$GITHUB_OUTPUT"
 
     - name: Run paratest on changed files
       if: ${{ !inputs.list-only }}
