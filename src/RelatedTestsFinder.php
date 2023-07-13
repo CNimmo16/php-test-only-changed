@@ -28,7 +28,7 @@ class RelatedTestsFinder {
             }
         }
 
-        $dependenciesByTestFile = (new DependencyFinder($rootPath, $ignorePaths, $unchangedTestFilePaths, $allowMissing))->findDependencies();
+        $dependenciesByTestFile = (new DependencyFinder($rootPath, $ignorePaths, $unchangedTestFilePaths, !$allowMissing))->findDependencies();
 
         return [
             ...array_keys(
