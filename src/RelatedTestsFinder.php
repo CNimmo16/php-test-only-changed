@@ -33,7 +33,7 @@ class RelatedTestsFinder {
         return [
             ...array_keys(
                 array_filter($dependenciesByTestFile, function ($dependentFiles) use ($changedFiles) {
-                    $isDependent = count(array_intersect($changedFiles, $dependentFiles)) > 0;
+                    $isDependent = count(array_intersect($changedFiles, $dependentFiles)) >= 1;
                     return $isDependent;
                 })
             ),
