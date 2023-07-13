@@ -14,7 +14,7 @@ if (file_exists(__DIR__.'/../vendor/autoload.php')) {
 
 use Cnimmo\TestOnlyChanged\RelatedTestsFinder;
 
-$opts = getopt('c:p:r:d', ['changed-files:', 'config-path', 'paths:', 'root:', 'allow-missing', 'ignore:', 'tests-directory:', 'debug']);
+$opts = getopt('c:p:r:d', ['changed-files:', 'config-path', 'paths:', 'root:', 'allow-missing', 'ignore:', 'tests-directory:', 'separator:', 'debug']);
 
 $testConfigPath = $opts['c'] ?? $opts['config-path'] ?? null;
 $pathOptionValue = $opts['p'] ?? $opts['paths'] ?? null;
