@@ -8,6 +8,10 @@ jobs:
   phpunittest:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: 'read'
+      actions: 'read'
+
     strategy:
       matrix:
         php-version:
